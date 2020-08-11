@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Montserrat", sans-serif;
+    // background: blue;
+}
+.modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 40%;
+        height: 40vh;
+        background: white;
+        font-size: 1.5rem;
+        button {
+            border: none;
+            background: rgb(133, 95, 194);
+            color: white;
+            padding: 0.5em 1em;
+            transition: all 0.25s ease;
+            margin: 2em;
+            font-weight: bold;
+            font-size: 1.5rem;
+            &:hover {
+                background-color: rgb(114, 77, 173);
+            }
+        }
+    }
+}
+.buttons {
+    display: none; // Hide these for now
+}
+.quiz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(133, 95, 194);
+    height: 100vh;
+
+    .card-container {
+        width: 400px;
+        height: 600px;
+        // max-height: 600px;
+        // max-width: 400px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .possible-answers {
+        height: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .answer {
+            color: white;
+            font-weight: bold;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 1rem;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            &:hover {
+                background: rgb(156, 138, 185);
+            }
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+        .active {
+            background-color: rgb(156, 138, 185);
+        }
+    }
+}
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0%;
+    left: 0;
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    background-color: rgba(133, 95, 194, 0.8);
+}
+.disappear {
+    animation: disappear 1.8s cubic-bezier(0.68,-0.01, 0.64, 0.9);
+}
+
+@keyframes disappear {
+    from {
+        opacity : 100%;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
