@@ -45,6 +45,7 @@ body {
   height: 40vh;
   background: white;
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .modal-wrapper .modal button {
@@ -86,7 +87,7 @@ body {
 }
 
 .quiz .card-container {
-  width: 400px;
+  width: 100%;
   height: 600px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -104,6 +105,8 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .quiz .possible-answers .answer {
@@ -160,6 +163,7 @@ body {
   font-size: 4rem;
   font-weight: bold;
   background-color: rgba(133, 95, 194, 0.8);
+  text-align: center;
 }
 
 .disappear {
@@ -182,6 +186,29 @@ body {
   }
   to {
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .quiz {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .quiz .card-container {
+    height: 66%;
+  }
+  .quiz .possible-answers {
+    height: 34%;
+  }
+  .modal-wrapper .modal {
+    width: 90%;
+    height: 90vh;
+  }
+  .quiz .possible-answers .answer {
+    width: 40px;
+    height: 40px;
+    margin: 0 0.5rem;
   }
 }
 /*# sourceMappingURL=style.css.map */
