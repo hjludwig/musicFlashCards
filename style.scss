@@ -41,8 +41,66 @@ body {
         }
     }
 }
-.buttons {
-    display: none; // Hide these for now
+
+// Override default appearance
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    input[type="checkbox"],
+    input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+}
+.options {
+    background: rgb(133, 95, 194);
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vh;
+    input:focus {
+        outline: none;
+    }
+    .check {
+        display: flex;
+        align-items: center;
+    }
+    input[type="checkbox"] {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid white;
+        margin-right: 0.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        outline: none;
+        &:focus {
+            outline: none;
+        }
+        &:checked {
+            background: white;
+        }
+        &:checked::after {
+            content: '';
+            background: rgb(133, 95, 194);
+            position: absolute;
+            left: 11px;
+            height: 12px;
+            width: 3px;
+            transform: rotate(45deg);
+        }
+        &:checked::before {
+            content: '';
+            background: rgb(133, 95, 194);
+            position: absolute;
+            height: 6px;
+            width: 3px;
+            left: 5px;
+            top: 8px;
+            transform: rotate(-45deg);
+        }
+    }
 }
 .quiz {
     display: flex;
@@ -50,7 +108,7 @@ body {
     justify-content: center;
     flex-direction: column;
     background-color: rgb(133, 95, 194);
-    height: 100vh;
+    height: 90vh;
 
     .card-container {
         width: 400px;
@@ -66,7 +124,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        
+
         .answer {
             color: white;
             font-weight: bold;
@@ -107,15 +165,14 @@ body {
     background-color: rgba(133, 95, 194, 0.8);
 }
 .disappear {
-    animation: disappear 1.8s cubic-bezier(0.68,-0.01, 0.64, 0.9);
+    animation: disappear 1.8s cubic-bezier(0.68, -0.01, 0.64, 0.9);
 }
 
 @keyframes disappear {
     from {
-        opacity : 100%;
+        opacity: 100%;
     }
     to {
         opacity: 0;
     }
 }
-

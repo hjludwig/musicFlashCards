@@ -67,7 +67,7 @@ function createError() {
     errorDiv.classList.add('error', 'disappear');
     document.body.appendChild(errorDiv);
     errorDiv.addEventListener('animationend', () =>  {
-        errorDiv.remove();
+       errorDiv.remove();
     });
 }
 

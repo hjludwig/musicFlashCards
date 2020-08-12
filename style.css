@@ -63,8 +63,90 @@ body {
   background-color: #724dad;
 }
 
-.buttons {
-  display: none;
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type="checkbox"],
+  input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+}
+
+.options {
+  background: #855fc2;
+  color: white;
+  font-size: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 10vh;
+}
+
+.options input:focus {
+  outline: none;
+}
+
+.options .check {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.options input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid white;
+  margin-right: 0.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  outline: none;
+}
+
+.options input[type="checkbox"]:focus {
+  outline: none;
+}
+
+.options input[type="checkbox"]:checked {
+  background: white;
+}
+
+.options input[type="checkbox"]:checked::after {
+  content: '';
+  background: #855fc2;
+  position: absolute;
+  left: 11px;
+  height: 12px;
+  width: 3px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.options input[type="checkbox"]:checked::before {
+  content: '';
+  background: #855fc2;
+  position: absolute;
+  height: 6px;
+  width: 3px;
+  left: 5px;
+  top: 8px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
 
 .quiz {
@@ -82,7 +164,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #855fc2;
-  height: 100vh;
+  height: 90vh;
 }
 
 .quiz .card-container {
