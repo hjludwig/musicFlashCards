@@ -199,16 +199,24 @@ body {
     height: 66%;
   }
   .quiz .possible-answers {
-    height: 34%;
-  }
-  .modal-wrapper .modal {
-    width: 90%;
-    height: 90vh;
+    height: 20%;
+    max-width: 278px;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    padding-bottom: 4rem;
   }
   .quiz .possible-answers .answer {
     width: 40px;
     height: 40px;
     margin: 0 0.5rem;
+  }
+  .error {
+    font-size: 2rem;
+  }
+  .modal-wrapper .modal {
+    width: 90%;
+    height: 90vh;
   }
 }
 /*# sourceMappingURL=style.css.map */

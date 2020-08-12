@@ -68,7 +68,7 @@ body {
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        
+
         .answer {
             color: white;
             font-weight: bold;
@@ -110,12 +110,12 @@ body {
     text-align: center;
 }
 .disappear {
-    animation: disappear 1.8s cubic-bezier(0.68,-0.01, 0.64, 0.9);
+    animation: disappear 1.8s cubic-bezier(0.68, -0.01, 0.64, 0.9);
 }
 
 @keyframes disappear {
     from {
-        opacity : 100%;
+        opacity: 100%;
     }
     to {
         opacity: 0;
@@ -129,17 +129,22 @@ body {
             height: 66%;
         }
         .possible-answers {
-            height: 34%;
+            height: 20%;
+            max-width: 278px;
+            align-items: flex-end;
+            padding-bottom: 4rem;
+            .answer {
+                width: 40px;
+                height: 40px;
+                margin: 0 0.5rem;
+            }
         }
+    }
+    .error {
+        font-size: 2rem;
     }
     .modal-wrapper .modal {
         width: 90%;
         height: 90vh;
     }
-    .quiz .possible-answers .answer {
-        width: 40px;
-        height: 40px;
-        margin: 0 0.5rem;
-    }
 }
-
