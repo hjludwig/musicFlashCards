@@ -1,3 +1,6 @@
+// 
+
+
 // Import answers
 import {cards} from './cards.js';
 
@@ -35,6 +38,7 @@ const buttons = document.querySelectorAll('.buttons button');
 const cardContainer = document.querySelector('.card-container');
 const answersArea = document.querySelector('.possible-answers');
 const answers = answersArea.childNodes;
+const checkBoxes = document.querySelectorAll('.options input');
 
 // Check guess
 function handleKeyDown(e) {
@@ -50,9 +54,10 @@ function checkAnswer(guess) {
         return;
     }
     if (guess === cardContainer.id) {
-        createWindow(correct);
+        displayMessage("Correct!");
+        generateCard();
     } else {
-        createError();
+        displayMessage("Try again...");
     }
 }
 
@@ -61,53 +66,25 @@ function handleClick(e) {
     checkAnswer(clicked);
 }
 
-function createError() {
-    let errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Whoops! Try again';
-    errorDiv.classList.add('error', 'disappear');
-    document.body.appendChild(errorDiv);
-    errorDiv.addEventListener('animationend', () =>  {
-       errorDiv.remove();
-    });
-}
-
-// Create Modal Window objects
-class ModalWindow {
-    constructor(name, text) {
-        this.name = name;
-        this.text = text;
+function handleCheck(e) {
+    console.log(e);
+    if(e.target.checked) {
+        console.log('check');
+    }
+    else {
+        console.log('uncheck');
     }
 }
 
-const correct = new ModalWindow('correct', 'You are correct!');
-
-function createWindow(obj) {
-    let markup = `<div class="modal-wrapper">
-                    <div class="${obj.name} modal">
-                        ${obj.text}
-                        <button class="close">Okay</button>
-                    </div>
-                </div>`;
-
-    document.body.insertAdjacentHTML('beforeend', markup);
-    
-    // Remove Modal Window
-    const closeBtn = document.querySelector('button.close');
-    const modalWrapper = document.querySelector('.modal-wrapper');
-    
-    closeBtn.addEventListener('click', () => {
-        modalWrapper.remove();
-        generateCard();
-    });
-    
-    modalWrapper.addEventListener('click', e => {
-        if (e.target.classList.contains('modal-wrapper')) {
-            modalWrapper.remove();
-            generateCard();
-        }
+function displayMessage(message) {
+    let theDiv = document.createElement('div');
+    theDiv.textContent = message;
+    theDiv.classList.add('alert', 'disappear');
+    document.body.appendChild(theDiv);
+    theDiv.addEventListener('animationend', () =>  {
+       theDiv.remove();
     });
 }
-
 
 // Event listeners
 
@@ -117,6 +94,10 @@ answers.forEach( answer => {
     answer.addEventListener('click', e => {
         handleClick(e);
     });
+})
+
+checkBoxes.forEach( checkBox => {
+    checkBox.addEventListener('click', handleCheck);
 })
 
 // Set up game
