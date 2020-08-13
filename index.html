@@ -11,9 +11,11 @@
         <title>Flashcards</title>
     </head>
     <body>
+        <div class="info">
+            <p>You're learning:<span></span></p>
+            <button name="options" id="options">Change Options</button>
+        </div>
         <div class="options">
-            <p>You're learning:</p>
-
             <div class="check">
                 <input type="checkbox" name="names" id="names" checked/>
                 <label for="names">Note Names</label>
@@ -22,7 +24,7 @@
                 <input type="checkbox" name="values" id="values" />
                 <label for="values">Note Values</label>
             </div>
-            <button name="options" id="options">Change Options</button>
+            <button name="submit" type="button" id="options-submit">Okay</button>
         </div>
         <div class="quiz">
             <div class="card-container" data-category=""></div>

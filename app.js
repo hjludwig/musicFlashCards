@@ -10,8 +10,17 @@ import {cards} from './cards.js';
 const cardContainer = document.querySelector('.card-container');
 const answersArea = document.querySelector('.possible-answers');
 const answers = answersArea.childNodes;
+const infoArea = document.querySelector('.info');
+const optionsArea = document.querySelector('.options');
 const checkBoxes = document.querySelectorAll('.options input');
-const optionsButton = document.querySelector('.options button');
+const optionsButton = document.querySelector('.info button');
+const submitBtn = optionsArea.querySelector('#options-submit');
+
+function initialize() {
+    
+    startGame();
+    updateInfo();
+}
 
 // Start game 
 function startGame() { 
@@ -105,10 +114,6 @@ function handleClick(e) {
     checkAnswer(clicked);
 }
 
-function handleCheck(e) {
-
-}
-
 function displayMessage(message) {
     let theDiv = document.createElement('div');
     theDiv.textContent = message;
@@ -117,6 +122,21 @@ function displayMessage(message) {
     theDiv.addEventListener('animationend', () =>  {
        theDiv.remove();
     });
+}
+
+function displayOptions() {
+    optionsArea.classList.add('show');
+}
+function updateInfo() {
+    const info = infoArea.querySelector('p');
+    
+    info.innerHTML = "You're learning: "
+    checkBoxes.forEach( checkBox => {
+        if(checkBox.checked) {
+            let markup = `<span class="category">Note ${checkBox.id}</span>`
+            info.insertAdjacentHTML('beforeEnd', markup);  
+        }
+    })
 }
 
 // Event listeners
@@ -129,13 +149,16 @@ answers.forEach( answer => {
     });
 })
 
-checkBoxes.forEach( checkBox => {
-    checkBox.addEventListener('click', handleCheck);
+submitBtn.addEventListener('click', () => {
+    optionsArea.classList.remove('show');
+    updateInfo();
+    startGame();
 });
+optionsButton.addEventListener('click', displayOptions);
 
-optionsButton.addEventListener('click', startGame);
+
 
 // Set up game
-window.onload = startGame;
+window.onload = initialize;
 
 
