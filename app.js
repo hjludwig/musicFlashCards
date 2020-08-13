@@ -3,26 +3,71 @@
 
 // Import answers
 import {cards} from './cards.js';
+// import {values, names} from './cards.js';
+
+
+// Get DOM Elements
+const cardContainer = document.querySelector('.card-container');
+const answersArea = document.querySelector('.possible-answers');
+const answers = answersArea.childNodes;
+const checkBoxes = document.querySelectorAll('.options input');
+const optionsButton = document.querySelector('.options button');
 
 // Start game 
-function startGame() {
-    generateCard();
+function startGame() { 
+    // Find out which set(s) to choose from
+    let cardsInPlay = handleOptions(cards);
+
+    generateCard(cardsInPlay);
     generateAnswers();
 }
 
+function handleOptions(cards) {
+    let cardsInPlay = [];
+    checkBoxes.forEach (checkBox => {
+        let option = checkBox.name;
+        if(checkBox.checked) {
+            cardsInPlay.push(...cards[option]);
+        }
+    });
+
+    // Remove answer options objects from the conslidated array
+    cardsInPlay.forEach((card, index) => {
+        if (card.hasOwnProperty('options')) {
+            cardsInPlay.splice(index, 1);
+        }
+    })
+    return cardsInPlay;
+}
+
 // Randomly choose card and display
-function generateCard() {
+function generateCard(cards) {
+
     let randomNum = parseInt(Math.random() * cards.length);
-    let randomCard = cards.find( card => card.id === randomNum);
+    let randomCard = cards[randomNum];
     cardContainer.style.backgroundImage = `url(assets/${randomCard.image}.png)`;
-    cardContainer.id = randomCard.pitch;
+    cardContainer.id = randomCard.answer;
+    cardContainer.setAttribute('data-category', randomCard.category);
 }
 
 // Generate possible answers
 function generateAnswers() {
-    let possibleAnswers = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+    
+    let category = cardContainer.getAttribute('data-category');    
+    let possibleAnswers = [];
+
+    // Get the options from the options object from the correct array
+    cards[category].forEach( card => {
+        if(card.hasOwnProperty('options')) {
+            possibleAnswers.push(...card.options);
+        }
+    });
+
+    // Clear answersArea
+    answersArea.innerHTML = '';
+
+    // Generate the answers
     possibleAnswers.forEach( answer => {
-      
         let newSpan = document.createElement('span');
         newSpan.textContent = answer;
         newSpan.id = answer;
@@ -32,13 +77,6 @@ function generateAnswers() {
     });
 }
 
-
-// Get DOM Elements
-const buttons = document.querySelectorAll('.buttons button');
-const cardContainer = document.querySelector('.card-container');
-const answersArea = document.querySelector('.possible-answers');
-const answers = answersArea.childNodes;
-const checkBoxes = document.querySelectorAll('.options input');
 
 // Check guess
 function handleKeyDown(e) {
@@ -55,7 +93,8 @@ function checkAnswer(guess) {
     }
     if (guess === cardContainer.id) {
         displayMessage("Correct!");
-        generateCard();
+        // Generate new card and answer options
+        startGame();
     } else {
         displayMessage("Try again...");
     }
@@ -67,13 +106,7 @@ function handleClick(e) {
 }
 
 function handleCheck(e) {
-    console.log(e);
-    if(e.target.checked) {
-        console.log('check');
-    }
-    else {
-        console.log('uncheck');
-    }
+
 }
 
 function displayMessage(message) {
@@ -98,7 +131,9 @@ answers.forEach( answer => {
 
 checkBoxes.forEach( checkBox => {
     checkBox.addEventListener('click', handleCheck);
-})
+});
+
+optionsButton.addEventListener('click', startGame);
 
 // Set up game
 window.onload = startGame;

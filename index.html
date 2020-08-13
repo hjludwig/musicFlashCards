@@ -12,17 +12,20 @@
     </head>
     <body>
         <div class="options">
+            <p>You're learning:</p>
+
             <div class="check">
-                <input type="checkbox" name="names" id="names" />
+                <input type="checkbox" name="names" id="names" checked/>
                 <label for="names">Note Names</label>
             </div>
             <div class="check">
                 <input type="checkbox" name="values" id="values" />
                 <label for="values">Note Values</label>
             </div>
+            <button name="options" id="options">Change Options</button>
         </div>
         <div class="quiz">
-            <div class="card-container"></div>
+            <div class="card-container" data-category=""></div>
             <div class="possible-answers"></div>
         </div>
 
