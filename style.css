@@ -109,11 +109,6 @@ button:active {
 
 .options input[type="checkbox"]:checked {
   background: white;
-<<<<<<< HEAD
-  font-size: 1.5rem;
-  text-align: center;
-=======
->>>>>>> Note-values-feature
 }
 
 .options input[type="checkbox"]:checked::after {
@@ -208,10 +203,6 @@ button:active {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-<<<<<<< HEAD
-=======
-  max-width: 90%;
->>>>>>> Note-values-feature
 }
 
 .quiz .possible-answers .answer {

@@ -69,14 +69,16 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
-        width: 40%;
-        height: 40vh;
-        background: white;
-        font-size: 1.5rem;
-        text-align: center;
-        button {
-            border: none;
+        position: relative;
+        outline: none;
+        &:focus {
+            outline: none;
+        }
+        &:checked {
+            background: white;
+        }
+        &:checked::after {
+            content: '';
             background: rgb(133, 95, 194);
             position: absolute;
             left: 11px;
@@ -143,10 +145,6 @@ button {
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-<<<<<<< HEAD
-=======
-        max-width: 90%;
->>>>>>> Note-values-feature
 
         .answer {
             color: white;
@@ -216,7 +214,6 @@ button {
         opacity: 0;
     }
 }
-<<<<<<< HEAD
 
 @media screen and (max-width: 600px) {
     .quiz {
@@ -244,5 +241,3 @@ button {
         height: 90vh;
     }
 }
-=======
->>>>>>> Note-values-feature
