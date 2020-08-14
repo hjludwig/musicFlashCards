@@ -9,25 +9,87 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.modal-wrapper {
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type="checkbox"],
+  input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+}
+
+button {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  text-transform: uppercase;
+  padding: 0.6em 1.2em;
+  border-radius: 2em;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  background: #9c8ab9;
+}
+
+button:active {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+.options, .info {
+  background: #855fc2;
+  color: white;
+  font-size: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 10vh;
+}
+
+.options {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  height: 100vh;
+  -webkit-transform: translateY(calc(-10vh - 10px));
+          transform: translateY(calc(-10vh - 10px));
   width: 100%;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+  -webkit-box-shadow: #281547 0 0 10px;
+          box-shadow: #281547 0 0 10px;
+}
+
+.options input:focus {
+  outline: none;
+}
+
+.options .check {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.modal-wrapper .modal {
+.options input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid white;
+  margin-right: 0.5em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -37,34 +99,73 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 40%;
-  height: 40vh;
+  position: relative;
+  outline: none;
+}
+
+.options input[type="checkbox"]:focus {
+  outline: none;
+}
+
+.options input[type="checkbox"]:checked {
   background: white;
+<<<<<<< HEAD
   font-size: 1.5rem;
   text-align: center;
+=======
+>>>>>>> Note-values-feature
 }
 
-.modal-wrapper .modal button {
-  border: none;
+.options input[type="checkbox"]:checked::after {
+  content: '';
   background: #855fc2;
-  color: white;
-  padding: 0.5em 1em;
-  -webkit-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  margin: 2em;
+  position: absolute;
+  left: 11px;
+  height: 12px;
+  width: 3px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.options input[type="checkbox"]:checked::before {
+  content: '';
+  background: #855fc2;
+  position: absolute;
+  height: 6px;
+  width: 3px;
+  left: 5px;
+  top: 8px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.options.show {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.info .category {
   font-weight: bold;
-  font-size: 1.5rem;
 }
 
-.modal-wrapper .modal button:hover {
-  background-color: #724dad;
+.info .category::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  display: inline-block;
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  font-weight: normal;
+  margin: 0 0.5em;
 }
 
-.buttons {
+.info .category:first-of-type {
+  margin-left: 0.5em;
+}
+
+.info .category:last-of-type::after {
   display: none;
 }
 
@@ -83,7 +184,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: #855fc2;
-  height: 100vh;
+  height: 90vh;
 }
 
 .quiz .card-container {
@@ -107,14 +208,19 @@ body {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+<<<<<<< HEAD
+=======
+  max-width: 90%;
+>>>>>>> Note-values-feature
 }
 
 .quiz .possible-answers .answer {
   color: white;
   font-weight: bold;
-  width: 60px;
+  min-width: 60px;
   height: 60px;
-  border-radius: 50%;
+  border-radius: 30px;
+  padding: 0 1em;
   border: 2px solid;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -164,6 +270,27 @@ body {
   font-weight: bold;
   background-color: rgba(133, 95, 194, 0.8);
   text-align: center;
+}
+
+.alert {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0%;
+  left: 0;
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  background-color: rgba(133, 95, 194, 0.8);
 }
 
 .disappear {

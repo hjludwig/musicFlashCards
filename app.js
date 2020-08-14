@@ -1,25 +1,82 @@
+// 
+
+
 // Import answers
 import {cards} from './cards.js';
+// import {values, names} from './cards.js';
+
+
+// Get DOM Elements
+const cardContainer = document.querySelector('.card-container');
+const answersArea = document.querySelector('.possible-answers');
+const answers = answersArea.childNodes;
+const infoArea = document.querySelector('.info');
+const optionsArea = document.querySelector('.options');
+const checkBoxes = document.querySelectorAll('.options input');
+const optionsButton = document.querySelector('.info button');
+const submitBtn = optionsArea.querySelector('#options-submit');
+
+function initialize() {
+    
+    startGame();
+    updateInfo();
+}
 
 // Start game 
-function startGame() {
-    generateCard();
+function startGame() { 
+    // Find out which set(s) to choose from
+    let cardsInPlay = handleOptions(cards);
+
+    generateCard(cardsInPlay);
     generateAnswers();
 }
 
+function handleOptions(cards) {
+    let cardsInPlay = [];
+    checkBoxes.forEach (checkBox => {
+        let option = checkBox.name;
+        if(checkBox.checked) {
+            cardsInPlay.push(...cards[option]);
+        }
+    });
+
+    // Remove answer options objects from the conslidated array
+    cardsInPlay.forEach((card, index) => {
+        if (card.hasOwnProperty('options')) {
+            cardsInPlay.splice(index, 1);
+        }
+    })
+    return cardsInPlay;
+}
+
 // Randomly choose card and display
-function generateCard() {
+function generateCard(cards) {
+
     let randomNum = parseInt(Math.random() * cards.length);
-    let randomCard = cards.find( card => card.id === randomNum);
+    let randomCard = cards[randomNum];
     cardContainer.style.backgroundImage = `url(assets/${randomCard.image}.png)`;
-    cardContainer.id = randomCard.pitch;
+    cardContainer.id = randomCard.answer;
+    cardContainer.setAttribute('data-category', randomCard.category);
 }
 
 // Generate possible answers
 function generateAnswers() {
-    let possibleAnswers = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+    
+    let category = cardContainer.getAttribute('data-category');    
+    let possibleAnswers = [];
+
+    // Get the options from the options object from the correct array
+    cards[category].forEach( card => {
+        if(card.hasOwnProperty('options')) {
+            possibleAnswers.push(...card.options);
+        }
+    });
+
+    // Clear answersArea
+    answersArea.innerHTML = '';
+
+    // Generate the answers
     possibleAnswers.forEach( answer => {
-      
         let newSpan = document.createElement('span');
         newSpan.textContent = answer;
         newSpan.id = answer;
@@ -29,12 +86,6 @@ function generateAnswers() {
     });
 }
 
-
-// Get DOM Elements
-const buttons = document.querySelectorAll('.buttons button');
-const cardContainer = document.querySelector('.card-container');
-const answersArea = document.querySelector('.possible-answers');
-const answers = answersArea.childNodes;
 
 // Check guess
 function handleKeyDown(e) {
@@ -50,9 +101,11 @@ function checkAnswer(guess) {
         return;
     }
     if (guess === cardContainer.id) {
-        createWindow(correct);
+        displayMessage("Correct!");
+        // Generate new card and answer options
+        startGame();
     } else {
-        createError();
+        displayMessage("Try again...");
     }
 }
 
@@ -61,53 +114,30 @@ function handleClick(e) {
     checkAnswer(clicked);
 }
 
-function createError() {
-    let errorDiv = document.createElement('div');
-    errorDiv.textContent = 'Whoops! Try again';
-    errorDiv.classList.add('error', 'disappear');
-    document.body.appendChild(errorDiv);
-    errorDiv.addEventListener('animationend', () =>  {
-        errorDiv.remove();
+function displayMessage(message) {
+    let theDiv = document.createElement('div');
+    theDiv.textContent = message;
+    theDiv.classList.add('alert', 'disappear');
+    document.body.appendChild(theDiv);
+    theDiv.addEventListener('animationend', () =>  {
+       theDiv.remove();
     });
 }
 
-// Create Modal Window objects
-class ModalWindow {
-    constructor(name, text) {
-        this.name = name;
-        this.text = text;
-    }
+function displayOptions() {
+    optionsArea.classList.add('show');
 }
-
-const correct = new ModalWindow('correct', 'You are correct!');
-
-function createWindow(obj) {
-    let markup = `<div class="modal-wrapper">
-                    <div class="${obj.name} modal">
-                        ${obj.text}
-                        <button class="close">Okay</button>
-                    </div>
-                </div>`;
-
-    document.body.insertAdjacentHTML('beforeend', markup);
+function updateInfo() {
+    const info = infoArea.querySelector('p');
     
-    // Remove Modal Window
-    const closeBtn = document.querySelector('button.close');
-    const modalWrapper = document.querySelector('.modal-wrapper');
-    
-    closeBtn.addEventListener('click', () => {
-        modalWrapper.remove();
-        generateCard();
-    });
-    
-    modalWrapper.addEventListener('click', e => {
-        if (e.target.classList.contains('modal-wrapper')) {
-            modalWrapper.remove();
-            generateCard();
+    info.innerHTML = "You're learning: "
+    checkBoxes.forEach( checkBox => {
+        if(checkBox.checked) {
+            let markup = `<span class="category">Note ${checkBox.id}</span>`
+            info.insertAdjacentHTML('beforeEnd', markup);  
         }
-    });
+    })
 }
-
 
 // Event listeners
 
@@ -119,7 +149,16 @@ answers.forEach( answer => {
     });
 })
 
+submitBtn.addEventListener('click', () => {
+    optionsArea.classList.remove('show');
+    updateInfo();
+    startGame();
+});
+optionsButton.addEventListener('click', displayOptions);
+
+
+
 // Set up game
-window.onload = startGame;
+window.onload = initialize;
 
 
